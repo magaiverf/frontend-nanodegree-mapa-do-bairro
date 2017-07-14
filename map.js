@@ -76,32 +76,38 @@ function initMap() {
             error: function() {
                 $('#suggestionImg').append($('<p>').text('Error on load suggestion image, please try again later.'));
             }
-        })
+        });
     }
 
     $('#btnFilter').click(function() {
         var filter = $('#filter').val();
+        
+        // hide all markers
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+
+        var bounds = new google.maps.LatLngBounds();
 
         if (filter.length > 0) {
             var selectedMarkers = _.filter(markers, function(b){ 
                 return _.includes(b.title.toLowerCase(), filter.toLowerCase()); 
             });
-
-            // hide all markers
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setMap(null);
-            }
-
-            var bounds = new google.maps.LatLngBounds();
             
-            for (var i = 0; i < selectedMarkers.length; i++) {
-                selectedMarkers[i].setMap(map);
-                bounds.extend(selectedMarkers[i].position);                        
-            }
-            map.fitBounds(bounds);
+            showMarkers(selectedMarkers, bounds);
+        } else {
+            showMarkers(markers, bounds);
         }
-
+        
+        map.fitBounds(bounds);
     });
+
+    function showMarkers(markers, bounds) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+            bounds.extend(markers[i].position);                        
+        }
+    }
 
     $(document).on("click", ".barberShops a", function() {
         var barberShop = $(this).text();
