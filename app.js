@@ -21,3 +21,7 @@ var ViewModel = function() {
     };
 };
 ko.applyBindings(new ViewModel());
+
+$('button.navbar-toggle').click(function() {
+    $('.sidebar').toggle('slow');
+});

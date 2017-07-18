@@ -10,31 +10,51 @@
         <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
         <style>
-            .sidebar {
-                position: fixed;
-            }
+
             #map {                
                 padding: 20px;
                 height: 85%;
-                width: 81%;
+                width: 90%;
                 position: fixed !important;
                 border: 1px solid gray;
             }
+
+            .sidebar {
+                display: none;
+            }
+
+            @media screen and (min-width: 768px) {                
+                .sidebar {
+                    position: fixed; 
+                    display: initial;                   
+                }
+
+                #map {
+                    width: 81%;
+                }
+            }
+
         </style>
     </head>
     <body>
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    Canoas Barber Shops
-                </a>
+                    <button type="button" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">
+                        Canoas Barber Shops
+                    </a>
                 </div>
             </div>
         </nav>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-2 sidebar">
+                <div class="col-sm-3 col-md-2 sidebar">
                     <form class="form-inline">
                         <div class="form-group">
                             <input id="filter" type="text" class="form-control" placeholder="Search">
@@ -45,8 +65,10 @@
                         <li><a href="#" data-bind="text: name"></a></li>
                     </ul>
                 </div>
-                <div class="col-md-10 col-md-offset-2 main">
-                    <div id="map"></div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <div>
+                        <div id="map"></div>
+                    </div>
                 </div>
             </div>
         </div>
